@@ -6,6 +6,7 @@
 \usepackage{comment}                            % Permite usar o \begin{comment}
 \usepackage{geometry}                           % Permite usar o \geometry{} para definir as margens da página
 \usepackage{tikz-cd}                            % Desenhar diagramas comutativos. Por algum motivo a opção "brazil" do pacote "babel" interfere na hora de colocar nome nas setas
+\usepackage{tcolorbox}
 
 %\usepackage{makeidx}   % Isso serve para criar indices remissivos, favor usar \makeindex exatamente uma linha antes de \begin{document}
 %\usepackage{graphicx}  % Inserir imagem
@@ -21,25 +22,37 @@
 \setlength{\parindent}{0pt}                             % Define a identação dos parágrafos. Setamos 0 e criamos um \newcommand para adicionar indentação em parágrafos específicos 
 \setlength{\jot}{10pt}                                  % Espaçamento entre linhas no ambiente \align ou \eqnarray 
 \linespread{1.3}                                        % Espaçamento entre linhas
+\newtcolorbox{adendo}[1][]{
+    colback=blue!5!white,                                       % fundo azul clarinho
+    colframe=blue!50!black,                                     % borda azul escura
+    coltitle=white,                                             % cor do título
+    fonttitle=\bfseries,                                        % título em negrito
+    title=#1,                                                   % O título será definido no corpo do texto no 1º colchetes
+    boxrule=1pt,                                                % espessura da borda
+    arc=3mm,                                                    % cantos arredondados
+    top=2mm, bottom=2mm,                                        % espaçamento interno
+    width=\dimexpr\textwidth+1cm\relax,                         % <<< maior que o textou 
+    left=3mm, right=3mm,                                        % margem interna extra
+    enlarge left by=-5mm,                                       % puxa pra fora da margem
+    enlarge right by=-5mm                                       % idem
+}
 
 %\pagestyle{}                       % Define estilo da página. Opções: "empty" "plain" "headings" "fancy"(com o package) etc.
 
 
-\begin{comment} 
-Isso aqui não é muito útil para listas de exercícios, mas permitirá vc usar \begin{theorem} sempre que quiser escrever um teorema.
+% Isso aqui não é muito útil para listas de exercícios, mas permitirá vc usar \begin{theorem} sempre que quiser escrever um teorema.
 
 \theoremstyle{plain}                    % Define o estilo da fonte no \begin{theorem} para os \newtheorem que seguem abaixo desta linha
 \newtheorem{theorem}{Teorema}
 \newtheorem{lemma}{Lema}
-\newtheorem{proposition}{Proposição}
+\newtheorem*{proposition}{Proposição}
 \newtheorem{corollary}{Corolário}
 \theoremstyle{definition}               
-\newtheorem{definition}{Definição}
+\newtheorem*{definition}{Definição}
 \newtheorem{example}{Exemplo}
 \theoremstyle{remark}
 \newtheorem*{remark}{Observação}
 \newtheorem*{notation}{Notação}
-\end{comment}
 
 \newcommand{\Gl}{\mathrm{GL}}
 \newcommand{\Mat}{\mathrm{Mat}}
@@ -288,5 +301,106 @@ Assim, vamos tratar $h_X$ como simplesmente $X$, e $\text{Hom}(h_X, F)$ como $FX
 
     Assim, \((X, \xi)\) não é objeto universal!
 \end{enumerate}
+
+
+\begin{adendo}[1. Categories Functors and Natural Transformations]
+    
+\section*{5. Mônicos, Epis e Zeros}
+
+\begin{definition}
+Uma seta $e: a \to b$ é dita \textbf{invertível} se existe uma seta $e': b \to a$ na mesma categoria tal que 
+$$ee' = 1_b \quad \text{e} \quad e'e = 1_a.$$
+Neste caso, dizemos que $a$ e $b$ são \textbf{isomorfos} ($a \cong b$) e $e$ é dito um \textbf{isomorfismo}.
+\end{definition}
+
+\end{adendo}
+\begin{adendo}
+    
+\begin{definition}
+Um morfismo $m: a \to b$ é dito \textbf{mônico} em $\mathcal{C}$ quando, para quaisquer setas paralelas $f_1, f_2: d \to a$, se
+$$m f_1 = m f_2 \quad \Rightarrow \quad f_1 = f_2.$$
+\end{definition}
+
+\begin{definition}
+Uma seta $h: a \to b$ em $\mathcal{C}$ é dita \textbf{epi} se, para quaisquer setas $g_1, g_2: b \to c$, vale
+$$g_1 h = g_2 h \quad \Rightarrow \quad g_1 = g_2.$$
+\end{definition}
+
+\begin{definition}
+Dado $h: a \to b$, um \textbf{inverso à direita} de $h$ é uma seta $r: b \to a$ tal que $hr = 1_b$.  
+$r$ é chamado \textbf{seção} de $h$.
+
+Analogamente, um \textbf{inverso à esquerda} é uma seta $p: b \to a$ tal que $ph = 1_a$.  
+$p$ é dito \textbf{retração} de $h$.
+\end{definition}
+
+\begin{proposition}
+Se uma seta possui inverso à direita, então ela é necessariamente epi.  
+Se possui inverso à esquerda, então é mônico.
+\end{proposition}
+
+\subsection*{Idempotentes e Splitting}
+
+\begin{definition}
+Se duas setas $g: a \to b$ e $h: b \to a$ são tais que $gh = 1_b$, então $f := hg$ está bem definido e é um \textbf{idempotente}, isto é, $f^2 = f$.
+\end{definition}
+
+\begin{definition}
+Um idempotente $f$ \textbf{splita} quando existem setas $g,h$ tais que
+$$f = gh \quad \text{e} \quad hg = 1_d.$$
+\end{definition}
+
+\subsection*{Objetos Especiais}
+
+\begin{definition}
+Um objeto $t$ é \textbf{terminal} quando, para todo objeto $a$, existe um único morfismo $a \to t$.
+\end{definition}
+
+\begin{definition}
+Um objeto $i$ é \textbf{inicial} quando, para todo objeto $b$, existe um único morfismo $i \to b$.
+\end{definition}
+
+\begin{definition}
+Um objeto que é inicial e terminal é dito \textbf{nulo}.
+\end{definition}
+
+\begin{proposition}
+Objetos nulos são únicos a menos de isomorfismos e definem, para quaisquer objetos $a$ e $b$, uma seta
+$$a \to z \to b,$$
+chamada \textbf{seta zero} (onde $z$ é um objeto nulo).
+\end{proposition}
+
+\end{adendo}
+\begin{adendo}
+
+\subsection*{Grupoides}
+
+\begin{definition}
+Um \textbf{grupoide} é uma categoria onde toda seta é invertível.  
+Um exemplo típico é o \textbf{grupoide fundamental} $\pi(X)$ de um espaço topológico $X$:  
+\begin{itemize}
+    \item os objetos são pontos $x \in X$;
+    \item as setas $x \to x'$ são classes de homotopia de caminhos de $x$ para $x'$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Se $G$ é um grupoide e $x$ é um objeto de $G$, então $\text{Hom}_G(x,x)$ forma um grupo.
+\end{proposition}
+
+\begin{proposition}
+Se existe morfismo ligando dois objetos $x \to x'$ em $G$, então os grupos $\text{Hom}_G(x,x)$ e $\text{Hom}_G(x',x')$ são isomorfos (pela conjugação).
+\end{proposition}
+
+\begin{definition}
+Um grupoide é dito \textbf{conectado} se existe uma seta ligando quaisquer dois objetos.  
+Um grupoide conectado é caracterizado pelo seu conjunto de objetos e um grupo $\text{Hom}_G(x,x)$.
+\end{definition}
+
+\begin{definition}
+No caso do grupoide fundamental $\pi(X)$, o conjunto é $X$ e o grupo $\text{Hom}(x,x)$ é dito \textbf{grupo fundamental}.
+\end{definition}
+
+\end{adendo}
 
 \end{document}
