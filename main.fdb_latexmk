@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1756045585.45505 "c:/Users/Guilherme/Desktop/LaTeX/IC/Grothendieck_Topologies/main.tex" "main.pdf" "main" 1756045587.13357 0
-  "c:/Users/Guilherme/Desktop/LaTeX/IC/Grothendieck_Topologies/main.tex" 1756045584 17409 fa1b98aa5243844fa890954e8da282b4 ""
+["pdflatex"] 1756836511.74871 "c:/Users/Guilherme/Desktop/LaTeX/IC/Grothendieck_Topologies/main.tex" "main.pdf" "main" 1756836513.36398 0
+  "c:/Users/Guilherme/Desktop/LaTeX/IC/Grothendieck_Topologies/main.tex" 1756836510 17398 c6bc3c304e3e34e8593f0cf1fbf1aa85 ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1711293388 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1711294460 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1711293993 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -157,8 +157,8 @@
   "c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1711299483 5519690 1698f96789543a09b6b0e33aada59581 ""
   "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1711299777 8222551 acfc6df3a6af09766e3004989d3ad7b4 ""
   "c:/texlive/2024/texmf.cnf" 1711299449 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1756045586 592 2650a0b324e1baf3586ff07a1c0c9659 "pdflatex"
-  "main.tex" 1756045584 17409 fa1b98aa5243844fa890954e8da282b4 ""
+  "main.aux" 1756836513 592 2650a0b324e1baf3586ff07a1c0c9659 "pdflatex"
+  "main.tex" 1756836510 17398 c6bc3c304e3e34e8593f0cf1fbf1aa85 ""
   (generated)
   "main.aux"
   "main.log"
