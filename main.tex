@@ -7,6 +7,7 @@
 \usepackage{geometry}                           % Permite usar o \geometry{} para definir as margens da página
 \usepackage{tikz-cd}                            % Desenhar diagramas comutativos. Por algum motivo a opção "brazil" do pacote "babel" interfere na hora de colocar nome nas setas
 \usepackage{tcolorbox}
+\usepackage{enumitem}                           % Permite customizar listas (enumerate, itemize etc.)
 
 %\usepackage{makeidx}   % Isso serve para criar indices remissivos, favor usar \makeindex exatamente uma linha antes de \begin{document}
 %\usepackage{graphicx}  % Inserir imagem
@@ -402,5 +403,119 @@ No caso do grupoide fundamental $\pi(X)$, o conjunto é $X$ e o grupo $\text{Hom
 \end{remark}
 
 \end{adendo}
+
+% 12/11/2025
+
+
+\begin{adendo}[II. Constructions on Categories]
+
+\section*{4. Functors Categories}
+
+Dado duas categorias $\mathcal{B}$ e $\mathcal{C}$ e funtores $R, S, T : \mathcal{C} \to \mathcal{B}$.
+
+Se $\sigma : R \Rightarrow S$ e $\tau : S \Rightarrow T$ são transformações naturais, então podemos criar $\tau \circ \sigma$ através da seguinte componente para cada $c \in \mathrm{Obj}(\mathcal{C})$:
+
+$$(\tau \circ \sigma)_c = \tau_c \circ \sigma_c.$$
+
+Para mostrar que $\tau \circ \sigma : R \Rightarrow T$ é de fato natural, tome uma seta $f : c \to c'$ em $\mathcal{C}$:
+
+\[
+\begin{tikzcd}
+R c \arrow[r, "\sigma_c"] \arrow[d, "R f"'] & S c \arrow[r, "\tau_c"] \arrow[d, "S f"'] & T c \arrow[d, "T f"'] \\
+R c' \arrow[r, "\sigma_{c'}"'] & S c' \arrow[r, "\tau_{c'}"'] & T c'
+\end{tikzcd}
+\]
+
+Este diagrama comuta, pois cada quadrado interno comuta.
+
+A composição de transformações naturais é associativa e, para cada funtor $T$, existe a transformação natural identidade $1_T$ dada pelos componentes $(1_T)_c = 1_{T c}$.
+
+Assim, dadas duas categorias $\mathcal{B}$ e $\mathcal{C}$, podemos definir a categoria de funtores
+$$\mathcal{B}^{\mathcal{C}} = \mathrm{Funct}(\mathcal{C}, \mathcal{B}),$$
+onde os objetos são os funtores de $\mathcal{C}$ para $\mathcal{B}$ e os morfismos são as transformações naturais.
+
+\paragraph{Exemplos.}
+
+\begin{enumerate}
+    \item Se $\mathcal{B}$ e $\mathcal{C}$ são conjuntos (categorias cujas setas são todas identidades), então $\mathcal{B}^{\mathcal{C}}$ é o conjunto de funções entre $\mathcal{C}$ e $\mathcal{B}$. Em particular, se $\mathcal{B} = \mathbf{2} = \{0,1\}$, então $\mathcal{B}^{\mathcal{C}} \cong \mathcal{P}(\mathcal{C})$.
+
+    \item Para toda categoria $\mathcal{B}$, $\mathcal{B}^{\mathbf{2}}$ é isomorfa a $\mathcal{B}^2$ e é chamada de \emph{categoria de setas de $\mathcal{B}$}, onde os objetos são as setas $f : a \to b$ e os morfismos $f \to f'$ são dados pelos pares $\langle h, k \rangle$ de setas em $\mathcal{B}$ tais que:
+\[
+\begin{tikzcd}
+a \arrow[r, "h"] \arrow[d, "f"'] & a' \arrow[d, "f'"] \\
+b \arrow[r, "k"'] & b'
+\end{tikzcd}
+\]
+comuta.
+
+\item Se $M$ é um monóide, então $(\mathbf{Set})^M$ é a categoria cujos objetos são as ações de $M$ (em algum conjunto) e as setas são os morfismos entre tais ações.
+
+\item Um objeto da categoria $(\mathbf{Grp})^M$ é um grupo com operadores $M$ (uma ação de $M$ no grupo, de endomorfismos de $G$, ou algo assim).
+
+\end{enumerate}
+
+\end{adendo}
+
+\begin{adendo}
+
+\begin{enumerate}[start = 5]
+\item Se $G$ é um grupo e $K$ um anel comutativo, então $(K\text{-}\mathbf{Mod})^G$ é a categoria de $K$-lineares representações de $G$.  
+Cada funtor $T : G \to K\text{-}\mathbf{Mod}$ atribui o único objeto de $G$ a um $K$-módulo $V$ e atribui as setas de $G$ a $\mathrm{Aut}(V)$.  
+Isso pode ser visto como um morfismo de grupos $f_T : G \to \mathrm{Aut}(V)$, onde cada elemento do grupo $G$ pode ser representado por transformações lineares $V \to V$.
+
+Se $T'$ é outro funtor, então uma transformação natural $\sigma : T \Rightarrow T'$ é dada por um único componente $\sigma : V \to V'$ de forma que o diagrama
+
+\[
+\begin{tikzcd}
+V \arrow[r, "\sigma"] \arrow[d, "f_T(g)"'] & V' \arrow[d, "f_{T'}(g)"] \\
+V \arrow[r, "\sigma"'] & V'
+\end{tikzcd}
+\]
+
+comuta para todo elemento $g$ do grupo $G$.
+
+Na teoria de representações, este $\sigma$ é chamado de \emph{operador intertwining}.  
+Logo, $(K\text{-}\mathbf{Mod})^G$ é a categoria onde os objetos são representações de $G$ e os morfismos são operadores intertwining.
+\end{enumerate}
+
+\paragraph{Proposição.} Vale o seguinte:
+
+\begin{enumerate}
+    \item Se $\mathcal{B}$ e $\mathcal{C}$ são categorias pequenas, então $\mathcal{B}^{\mathcal{C}}$ também é.
+    \item Se $\mathcal{B}$ é uma classe e $\mathcal{C}$ é pequena, $\mathcal{B}^{\mathcal{C}}$ é grande.
+    \item Se $\mathcal{B}$ tem $\mathrm{Mor}(\mathcal{B})$ pequeno e $\mathcal{C}$ é pequena, então $\mathcal{B}^{\mathcal{C}}$ possui $\mathrm{Mor}(\mathcal{B}^{\mathcal{C}})$ pequeno.
+\end{enumerate}
+
+\end{adendo}
+
+\begin{adendo}[III. Universal and Limits]
+
+\section*{1. Seta Universal}
+
+\textbf{Definição.} Dado $S : \mathcal{D} \to \mathcal{C}$ um funtor e $c$ um objeto de $\mathcal{C}$, um par $\langle r, u \rangle$ consiste em um objeto $r$ de $\mathcal{D}$ e uma seta $u : c \to S r$ tal que, para todo par $(d, f)$, existe uma única seta $f' : r \to d$ tal que:
+
+\[
+\begin{tikzcd}
+c \arrow[r, "u"] \arrow[dr, "f"'] & S r \arrow[d, "S f'"] \\
+& S d
+\end{tikzcd}
+\]
+
+comuta.  
+É chamado de \emph{seta universal} de $c$ para $S$.
+
+\section*{3. Coproducts and Colimits}
+
+\textbf{Coproduto.} Para qualquer categoria $\mathcal{C}$, o funtor diagonal $\Delta : \mathcal{C} \to \mathcal{C} \times \mathcal{C}$ é definido nos objetos por:
+$$\Delta(c) = \langle c, c \rangle$$
+e nos morfismos por:
+$$\Delta(f) = \langle f, f \rangle.$$
+
+Uma seta universal de um objeto $\langle a, b \rangle$ de $\mathcal{C} \times \mathcal{C}$ para o funtor $\Delta$ é chamada de \emph{diagrama de coproduto}.
+
+
+\end{adendo}
+
+
 
 \end{document}
